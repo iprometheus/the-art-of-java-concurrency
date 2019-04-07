@@ -1,25 +1,9 @@
 public class A_ContextSwithTest {
 
-    private static int count=100000000;
+    private static long count=100000000;
 
     public static void main(String[] args) throws Exception {
-        System.out.println("10000次(1万次)");
-//        concurrency(10000);
-//        serial(10000);
-//
-//        System.out.println("100000次(10万次)");
-//        concurrency(100000);
-//        serial(100000);
-//
-//        System.out.println("1000000次(100万次)");
-//        concurrency(1000000);
-//        serial(1000000);
-//
-//        System.out.println("10000000次(1000万次)");
-//        concurrency(10000000);
-//        serial(10000000);
-
-        System.out.println("100000000次(1亿次)");
+        System.out.println("1亿次");
         concurrency();
         serial();
     }
@@ -35,8 +19,8 @@ public class A_ContextSwithTest {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                int a = 0;
-                for (long i = 0; i < count; i++) {
+                long a = 0;
+                for (long i= 0; i < count; i++) {
                     a += 5;
                 }
             }
@@ -49,25 +33,25 @@ public class A_ContextSwithTest {
         }
         thread.join();
 
-        long end = System.currentTimeMillis();
-        System.out.println("concurrency:" + (end - startTime)+",b"+b);
+        long time = System.currentTimeMillis()-startTime;
+        System.out.println("concurrency:" + time+",b"+b);
     }
 
     private static void serial() throws Exception {
         long startTime = System.currentTimeMillis();
         int a = 0;
-        for (int i = 0; i < count; i++) {
-            a += 10;
+        for (long i = 0; i < count; i++) {
+            a += 5;
         }
-        int b =10;
-        for (int i = 0; i < count; i++) {
+        int b =0;
+        for (long i = 0; i < count; i++) {
             b--;
         }
-        long end = System.currentTimeMillis();
-        System.out.println("start:"+startTime);
-        System.out.println("end:"+end);
-        System.out.println("serial:" + (end - startTime)+",a"+a+",b"+b);
+        long time = System.currentTimeMillis() - startTime;
+        System.out.println("serial:" + time+",a"+a+",b"+b);
 
     }
+
+
 
 }
